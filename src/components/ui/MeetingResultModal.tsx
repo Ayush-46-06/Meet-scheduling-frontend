@@ -33,7 +33,7 @@ export default function MeetingResultModal({ type, meetLink, onClose }: Props) {
         {type === 'success' && (
           <>
             <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 mx-auto">
-              <CheckCircle2 size={30} style={{ color: 'var(--teal)' }} />
+              <CheckCircle2 size={40} style={{ color: 'var(--teal)' }} />
             </div>
             <h2 className="text-xl font-bold text-center mb-2"
                 style={{ fontFamily: 'var(--font-sora)', color: 'var(--navy)' }}>
@@ -46,7 +46,7 @@ export default function MeetingResultModal({ type, meetLink, onClose }: Props) {
             {meetLink && (
               <div className="mb-5">
                 <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2">
-                  Meet Link
+                  Meeting Link
                 </p>
                 <div className="flex items-center gap-2 p-3 bg-slate-50 border border-slate-200 rounded-xl">
                   <a href={meetLink} target="_blank" rel="noreferrer"

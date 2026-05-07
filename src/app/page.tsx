@@ -48,16 +48,23 @@ export default function Home() {
       return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
     };
 
+    // correct time 
+    const formatLocalDate = (date: Date) => {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    };
     const payload = {
       title: form.title,
-      meetingDate: selectedDate.toISOString().split('T')[0],
+      meetingDate: formatLocalDate(selectedDate!),
       startTime: convertTo24(selectedTime),
       endTime: convertTo24(calculateEndTime(selectedTime)),
       userEmail: form.email,
     };
 
     try {
-      const res = await fetch('http://localhost:8080/api/create-meeting', {
+      const res = await fetch('/api/create-meeting', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -70,7 +77,7 @@ export default function Home() {
         const meetLink = text.includes('https://') ? text.split(': ')[1] : undefined;
         setModalState({ show: true, type: 'success', meetLink });
         // fetch meeting details
-        fetch('http://localhost:8080/api/my-meetings', { credentials: 'include' })
+        fetch('/api/my-meetings', { credentials: 'include' })
           .then(r => r.json())
           .then(setMyMeetings);
       } else if (res.status === 409) {
@@ -88,7 +95,7 @@ export default function Home() {
     if (!user) return;
     console.log('Fetching meetings for:', user.email);
     setMeetingsLoading(true);
-    fetch('http://localhost:8080/api/my-meetings', {
+    fetch('/api/my-meetings', {
       credentials: 'include',
     })
       .then(res => {
@@ -161,7 +168,7 @@ export default function Home() {
               <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-teal-400/10" />
               <h2 className="text-lg font-bold text-white relative z-10 inline"
                 style={{ fontFamily: 'var(--font-sora)' }}>Meet with Us</h2>
-              
+
               <p className="text-white/60 text-sm mt-0.5 relative z-10">Select your preferred date</p>
 
               <span className="inline-flex items-center gap-1.5 mt-3 px-3 py-1 rounded-lg text-[11px] font-medium relative z-10"
