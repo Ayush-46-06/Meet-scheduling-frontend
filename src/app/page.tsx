@@ -64,7 +64,7 @@ export default function Home() {
     };
 
     try {
-      const res = await fetch('https://meet-scheduling.onrender.com/api/create-meeting', {
+      const res = await fetch('/api/create-meeting', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -77,7 +77,7 @@ export default function Home() {
         const meetLink = text.includes('https://') ? text.split(': ')[1] : undefined;
         setModalState({ show: true, type: 'success', meetLink });
         // fetch meeting details
-        fetch('https://meet-scheduling.onrender.com/api/my-meetings', { credentials: 'include' })
+        fetch('/api/my-meetings', { credentials: 'include' })
           .then(r => r.json())
           .then(setMyMeetings);
       } else if (res.status === 409) {
@@ -95,7 +95,7 @@ export default function Home() {
     if (!user) return;
     console.log('Fetching meetings for:', user.email);
     setMeetingsLoading(true);
-    fetch('https://meet-scheduling.onrender.com/api/my-meetings', {
+    fetch('/api/my-meetings', {
       credentials: 'include',
     })
       .then(res => {

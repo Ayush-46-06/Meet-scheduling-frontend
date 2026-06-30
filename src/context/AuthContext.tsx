@@ -25,7 +25,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://meet-scheduling.onrender.com/user', {
+        fetch('/user', {
             credentials: 'include',
         })
             .then(res => res.ok ? res.json() : null)
@@ -37,11 +37,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const login = () => {
-        window.location.href = 'https://meet-scheduling.onrender.com/oauth2/authorization/google';
+        window.location.href = '/oauth2/authorization/google';
     };
 
     const logout = () => {
-        window.location.href = 'https://meet-scheduling.onrender.com/logout';
+        window.location.href = '/logout';
     };
 
     return (
